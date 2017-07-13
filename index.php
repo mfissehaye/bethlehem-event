@@ -1,8 +1,4 @@
-<?php
-session_start();
-$image_width = 585;
-$image_height = 448;
-require_once('coordinates.php'); ?>
+<?php session_start(); ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,118 +6,113 @@ require_once('coordinates.php'); ?>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome to the Expo</title>
+    <title>Welcome to Exhibition</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <style>
-        #map-container {
-            position: relative;
-            background: #eeeeee;
-            height: <?php echo $image_height ?>px;
-            width: 100%;
-        }
-        #custom-map, img {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            margin: 0 auto;
-            width: <?php echo $image_width ?>px;
-            height: <?php echo $image_height ?>px;
-        }
-
-        #custom-map {
-            z-index: 10;
-        }
-
-        .custom-area, .reserved-spots .spot {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            background: #70d869;  /*For diagnosis*/
-            z-index: 10;
-            font-size: 11px;
-            color: #66ac76;
-            font-weight: bold;
-            line-height: 18px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .reserved-spots .spot {
-            color: #000;
-            margin: 0 3px;
-        }
-
-        .custom-area {
-            position: absolute;
-        }
-
-        .custom-area.rotate {
-            transform: rotate(45deg);
-        }
-
-        .custom-area.reserved {
-            background: #e15b5c;
-            color: #b63846;
-        }
-
-        .reserved-spots {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 350px;
-            padding: 20px;
-        }
-
-        .reserved-spots h1 {
-            font-size: 14px;
-            font-weight: bolder;
-        }
-
-        hr {
-            border-color: #dddddd;
-        }
-        .red-tooltip .tooltip > .tooltip-inner {background-color: #f00;}
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
-<div>
-    <div class="text-center" id="map-container">
-        <div id="custom-map">
-	        <?php foreach ( $coordinates as $index => $coordinate ): ?>
-                <?php $reserved = isset($coordinate['reserved']) && $coordinate['reserved'] ?>
-                <?php $additional_classes = isset($coordinate['rotate']) && $coordinate['rotate'] ? ' rotate' : ''; ?>
-                <?php $additional_classes .= $reserved ? ' reserved' : ''; ?>
-                <span class="custom-area red-tooltip <?php echo $additional_classes ?>" style="left: <?php echo $coordinate['x'] ?>px; top: <?php echo $coordinate['y'] ?>px" <?php if($reserved) echo 'data-toggle="tooltip" title="This spot is reserved"' ?>><?php echo $index ?></span>
-	        <?php endforeach ?>
-        </div>
-        <img src="img/map.jpg" alt="">
-        <div class="reserved-spots text-left">
-            <h1 class="text-uppercase">Locations Reserved</h1>
-            <small class="nothing-selected text-muted ">You haven't reserved anything yet. Click on one of the boxes inside the picture on the left to reserve spots on the event.</small>
-            <div class="reserved-spots-container">
-                <span class="spot" data-toggle="tooltip" title="Click to delete selection">1</span>
-                <span class="spot" data-toggle="tooltip" title="Click to delete selection">45</span>
-                <span class="spot" data-toggle="tooltip" title="Click to delete selection">56</span>
-            </div>
-            <hr>
-        </div>
+<div class="container">
+    <div class="text-center">
+        <h4 class="section-title text-uppercase"><strong>Welcome to Exhibition Manager</strong></h4>
+        <ul class="nav nav-pills" style="display: inline-block;">
+            <li><a href="#">Exhibitor Register</a></li>
+            <li><a href="#">International Visitor</a></li>
+        </ul>
     </div>
+    <form action="" method="POST" id="exhibitor-form" class="col-md-5">
+        <fieldset>
+            <legend>Company Information</legend>
+            <div class="form-group">
+                <label for="company-name">Company's Name</label>
+                <input type="text" class="form-control" id="company-name" name="company_name"
+                       placeholder="Company's Name" required value="<?php echo isset($_SESSION['company_name']) ? $_SESSION['company_name'] : '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" class="form-control" id="first-name" name="company_first_name"
+                       placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" class="form-control" id="last-name" name="company_last_name" placeholder="Last Name"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="median-name">Median Name</label>
+                <input type="text" class="form-control" id="median-name" name="company_median_name"
+                       placeholder="Median Name" required>
+            </div>
+            <label for="male">Sex</label>
+            <div class="form-group">
+                <div class="radio">
+                    <input type="radio" name="company_sex" id="male" value="M" required><label for="male">Male</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" name="company_sex" id="female" value="F" required><label
+                            for="female">Female</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="company_email" placeholder="Email" required>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Contact Person Information</legend>
+            <div class="form-group">
+                <label for="contact-person">Contact Person Name</label>
+                <input type="text" class="form-control" id="contact-person" name="contact_person_name"
+                       placeholder="Contact Person" required>
+            </div>
+            <div class="form-group">
+                <label for="passport-number">Passport Number</label>
+                <input type="text" class="form-control" id="passport-number" name="contact_person_passport_number"
+                       placeholder="Passport Number" required>
+            </div>
+            <div class="form-group">
+                <label for="given-date">Given Date</label>
+                <input type="date" class="form-control" id="given-date" name="contact_person_passport_given_date"
+                       placeholder="Given Date" required>
+            </div>
+            <div class="form-group">
+                <label for="expiry-date">Expiry Date</label>
+                <input type="date" class="form-control" id="expiry-date" name="contact_person_passport_expiry_date"
+                       placeholder="Expiry Date" required>
+            </div>
+            <div class="form-group">
+                <label for="nationality">Nationality</label>
+                <input type="text" class="form-control" id="nationality" name="contact_person_nationality"
+                       placeholder="Nationality" required>
+            </div>
+            <div class="form-group">
+                <label for="staying-date">Staying Date</label>
+                <input type="date" class="form-control" id="staying-date" name="contact_person_staying_date"
+                       placeholder="Staying Date" required>
+            </div>
+            <div class="form-group">
+                <label for="address-in-addis">Address in Addis</label>
+                <input type="text" class="form-control" id="address-in-addis" name="contact_person_address_in_addis"
+                       placeholder="Address In Addis" required>
+            </div>
+            <div class="form-group">
+                <label for="hotel">Hotel</label>
+                <input type="text" class="form-control" id="hotel" name="contact_person_hotel" placeholder="Hotel"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="telephone">Telephone</label>
+                <input type="text" class="form-control" id="telephone" name="contact_person_telephone"
+                       placeholder="Telephone" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" id="submit-exhibitor-form">Submit</button>
+            </div>
+        </fieldset>
+    </form>
 </div>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-
-        // reserving logic
-        var $reservedSpots = [];
-        var reservedSpotTemplate = '<span class="spot" data-toggle="tooltip" title="Click to delete selection"></span>';
-        $('.custom-area').on('click', function(e) {
-            ($('.reserved-spots-container')).append($(reservedSpotTemplate).text($(this).text()));
-        })
-    })
-</script>
+<script type="text/javascript" src="js/exhibitor.js"></script>
 </body>
 </html>

@@ -1,0 +1,63 @@
+#custom-map {
+    z-index: 10;
+}
+
+.custom-area, .reserved-spots .spot {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: #70d869;  /*For diagnosis*/
+    z-index: 10;
+    font-size: 11px;
+    color: #66ac76;
+    font-weight: bold;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.reserved-spots .spot {
+    color: #000;
+    margin: 0 3px;
+}
+
+.custom-area {
+    position: absolute;
+}
+
+.custom-area.rotate {
+    transform: rotate(45deg);
+}
+
+.custom-area.reserved {
+    background: #e15b5c;
+    color: #b63846;
+    cursor: not-allowed;
+}
+
+.custom-area.selected {
+    background: black;
+    color: white;
+}
+
+.reserved-spots {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 350px;
+    padding: 20px;
+}
+
+.reserved-spots h1 {
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.red-tooltip .tooltip > .tooltip-inner {background-color: #f00;}
+.table {
+    margin-top: 20px;
+}
+
+.btn.disabled {
+    cursor: not-allowed;
+}

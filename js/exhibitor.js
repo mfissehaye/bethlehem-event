@@ -6,13 +6,13 @@
             e.preventDefault();
             $submit.text('Loading').addClass('disabled');
             $.ajax({
-                url: 'http://localhost:8000/create-exhibitor.php',
+                url: '/create-exhibitor.php',
                 type: 'POST',
                 dataType: 'json',
                 data: $(this).serialize(),
                 success: function (msg) {
                     $submit.text('Registered successfully ... redirecting').removeClass('btn-primary').addClass('btn-success btn-block');
-                    window.location = 'http://localhost:8000/map.php';
+                    window.location = '/map.php';
                 },
                 error: function (err) {
                     $submit.text('Submit').removeClass('disabled');

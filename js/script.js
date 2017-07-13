@@ -20,7 +20,7 @@ $(function () {
         $finishButton.text('Loading');
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8000/reserve.php',
+            url: '/reserve.php',
             data: {
                 exhibitorId: exhibitorId,
                 exhibitorEmail: exhibitorEmail,
@@ -49,7 +49,7 @@ $(function () {
     });
 
     (function doPoll() {
-        $.get('http://localhost:8000/get_reserved_spots.php', function(data) {
+        $.get('/get_reserved_spots.php', function(data) {
             reserveCustomAreas(data);
             setTimeout(doPoll, 1000);
         })

@@ -3,11 +3,5 @@
 require_once('inc/db.php');
 
 header('Content-Type', 'application/json');
-$spots = get_spots();
-$spot_ids = [];
-foreach($spots as $spot) {
-	if($spot['reserved']) {
-		$spot_ids[] = $spot['id'];
-	}
-}
-echo json_encode($spot_ids);
+$reserved_spot_ids = get_reserved_spot_ids();
+echo json_encode($reserved_spot_ids);

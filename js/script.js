@@ -19,38 +19,58 @@ $(function () {
         $finishButton.addClass('disabled');
         $finishButton.text('Loading');
         $.ajax({
+            type: 'POST',
             url: 'http://localhost:8000/reserve.php',
             data: {
                 exhibitorId: exhibitorId,
+                exhibitorEmail: exhibitorEmail,
                 spots: reservedSpots
             },
             dataType: 'json',
             success: function (result) {
                 console.log(result);
+                if(result.status === 'success') {
+                    $finishButton.html('<strong>Finish Order</strong>');
+                    $finishButton.removeClass('disabled');
+
+                    var $priceModal = $('#price-modal');
+                    $priceModal.modal('show');
+                    var $modalSpots = $('#modal-spots');
+                } else {
+                    throw new Error('Unable to complete request: ', result);
+                }
+            },
+            error: function(xhr, errType, errMsg) {
                 $finishButton.html('<strong>Finish Order</strong>');
                 $finishButton.removeClass('disabled');
-                window.location = 'http://localhost:8000/map.php';
+                console.log(errMsg);
             }
         });
     });
 
     (function doPoll() {
         $.get('http://localhost:8000/get_reserved_spots.php', function(data) {
-            $('.custom-area').each(function() {
-                if(data.indexOf($(this).text()) !== -1) {
-                    reservedSpots.spliceByValue($(this).text());
-                    renderSelectedSpots();
-                    $(this).addClass('reserved');
-                }
-            });
+            reserveCustomAreas(data);
             setTimeout(doPoll, 1000);
         })
     })();
 
+    function reserveCustomAreas(areaLabels) {
+        areaLabels = JSON.parse(areaLabels);
+        $('.custom-area').each(function(i, v) {
+            if(areaLabels.indexOf($(v).text()) !== -1) {
+                reservedSpots.spliceByValue($(v).text());
+                $(v).addClass('reserved');
+            }
+        });
+        renderSelectedSpots();
+    }
+
     $('.custom-area').on('click', function (e) {
         var spot = $(this).text();
         if (reservedSpots.indexOf(spot) !== -1) {
-            alert('You have already selected this spot');
+            reservedSpots.spliceByValue(spot);
+            renderSelectedSpots();
         }
         else if (!$(this).hasClass('reserved')) {
             reservedSpots.push(spot);
@@ -68,6 +88,15 @@ $(function () {
         });
         renderSelectedSpots();
         calculatePrice();
+    }).on('mouseenter', '.spot', function() {
+        $('.custom-area').each(function(i, v) {
+            console.log($(v).text());
+            if($(v).text() === $(this).text()) {
+                $(this).addClass('hovered');
+            }
+        })
+    }, function() {
+        $('.custom-area').removeClass('hovered');
     });
 
     function renderSelectedSpots() {

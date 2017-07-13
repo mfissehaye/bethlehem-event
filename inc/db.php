@@ -63,20 +63,42 @@ function get_spots() {
 	return $result;
 }
 
+function get_reserved_spot_ids() {
+	$connection = db_connect();
+	$query = "SELECT id FROM spots WHERE reserved=1";
+	$statement = $connection->prepare($query);
+	$statement->execute();
+	$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$connection = null; // close connection
+	$ids = [];
+	foreach($result as $id) {
+		$ids[] = $id['id'];
+	}
+	return $ids;
+}
+
 function reserveSpots($exhibitorId, $spots) {
 
 	global $database_error;
+
+	$connection = db_connect();
 
 	$spotsText = "(";
 	foreach($spots as $spot) {
 		$spotsText .= "$spot,";
 	}
+
+	// select the ones which are not reserved nor approved already
+	$query = "SELECT id from spots WHERE id in $spotsText AND reserved=0 AND approved=0";
+	$itemsToReserveStatement = $connection->prepare($query);
+	$itemsToReserveStatement->execute();
+	$itemsToReserve = $itemsToReserveStatement->fetchAll(PDO::FETCH_ASSOC);
+
 	$spotsText = rtrim($spotsText, ',') . ')';
-	$query = "UPDATE spots SET exhibitor_id=$exhibitorId, reserved=1 WHERE id in $spotsText AND reserved=0 AND approved=0";
-	$connection = db_connect();
+	$query = "UPDATE spots SET exhibitor_id=$exhibitorId, reserved=1, reserved=1 WHERE id in $spotsText AND reserved=0 AND approved=0";
 	if($connection->exec($query)) {
 		$connection = null;
-		return true;
+		return $itemsToReserve;
 	} else {
 		$database_error = $connection->errorInfo();
 		$connection = null;

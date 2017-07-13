@@ -40,6 +40,18 @@
     color: white;
 }
 
+.custom-area.hovered:after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: solid 4px #DDDD00;
+    border-radius: 100%;
+    top: -5px;
+    left: -6px;
+    background: rgba(255,255,0,0.6);
+}
+
 .reserved-spots {
     position: absolute;
     right: 0;

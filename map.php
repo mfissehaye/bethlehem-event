@@ -85,12 +85,24 @@ $spots = get_spots();
             <br><a href="/index.php">&laquo; Go back to edit organization info</a>
         </div>
     </div>
+    <div class="modal fade" id="price-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="alert alert-success">You have been registered successfully. You will receive a confirmation email shortly.
+                        <a href="http://mail.google.com" target="_blank">Check your Inbox</a></p>
+                    <h1 class="text-uppercase" style="font-size: 16px;"><strong>Reserved Spots</strong></h1>
+                    <div id="modal-spots"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script>
     var exhibitorId = "<?php echo $exhibitor_data['id'] ?>";
+    var exhibitorEmail = "<?php echo $exhibitor_data['company_email'] ?>";
 </script>
 <script type="text/javascript" src="js/script.js"></script>
 </body>

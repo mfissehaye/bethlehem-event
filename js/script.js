@@ -25,6 +25,7 @@ $(function () {
                 spots: reservedSpots
             },
             dataType: 'json',
+
             success: function (result) {
                 if(result.status === 'success') {
                     $finishButton.html('<strong>Finish Order</strong>');

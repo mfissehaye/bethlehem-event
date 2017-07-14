@@ -7,7 +7,7 @@ require_once( '../vendor/autoload.php' );
 
 //header( 'Content-Type: application/json' );
 
-if(!isset($_POST['exhibitorId']) || !isset($_POST['spots']) || !isset($_POST['exhibitorEmail'])) {
+if(!isset($_POST['spots'])) {
 	header('Content-Type: application/json');
 	echo json_encode(['status' => 'failure', 'msg' => 'No spots specified']);
 	exit();

@@ -22,8 +22,6 @@ $(function () {
             type: 'POST',
             url: '/src/reserve.php',
             data: {
-                exhibitorId: exhibitorId,
-                exhibitorEmail: exhibitorEmail,
                 spots: reservedSpots
             },
             dataType: 'json',

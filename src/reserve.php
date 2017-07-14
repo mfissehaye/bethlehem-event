@@ -12,10 +12,8 @@ if(!isset($_POST['exhibitorId']) || !isset($_POST['spots']) || !isset($_POST['ex
 	echo json_encode(['status' => 'failure', 'msg' => 'No spots specified']);
 	exit();
 }
-$exhibitorId       = $_POST['exhibitorId'];
 $spots             = $_POST['spots'];
-$company_email     = $_POST['exhibitorEmail'];
-$reserved_spot_ids = App\DB::reserveSpots( $exhibitorId, $spots );
+$reserved_spot_ids = App\DB::reserveSpots($spots );
 
 /*function sendEmail() {
 	global $company_email;

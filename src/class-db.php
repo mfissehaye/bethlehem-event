@@ -33,7 +33,7 @@ class DB {
 		return $db->table('spots')->where('reserved', 1);
 	}
 
-	public static function reserveSpots($exhibitor_id, $spots) {
+	public static function reserveSpots($spots) {
 		$db = self::connect();
 		$free_spots = $db->table('spots')->where('id', $spots)->where('reserved', 0)->where('approved', 0);
 
@@ -43,7 +43,6 @@ class DB {
 		foreach($free_spots as $spot) {
 			$reserved_spot_ids[] = $spot['id'];
 			$spot['reserved'] = 1;
-			$spot['exhibitor_id'] = $exhibitor_id;
 			$spot->save();
 		}
 

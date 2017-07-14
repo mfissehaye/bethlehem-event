@@ -1,3 +1,13 @@
+fieldset {
+    border: solid 1px #ccc;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+legend {
+    padding: 0 25px;
+}
+
 #custom-map {
     z-index: 10;
 }

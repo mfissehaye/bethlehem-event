@@ -26,7 +26,7 @@
                 error: function (err, a, b) {
                     console.log(b);
                     $submit.text('Submit').removeClass('disabled');
-                    throw(errMsg);
+                    throw(a);
                 }
             });
             return false;

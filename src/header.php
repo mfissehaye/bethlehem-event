@@ -17,7 +17,8 @@
         <div class="jumbotron">
             <h4 class="section-title text-uppercase"><strong>Welcome to Exhibition Manager</strong></h4>
             <ul class="nav nav-pills" style="display: inline-block;">
-                <li class="<?php if(basename($_SERVER['PHP_SELF'], '.php') === 'page-exhibitor-form') echo 'active' ?>"><a href="/src/page-exhibitor-form.php">Exhibitor Register</a></li>
+                <li class="<?php if(basename($_SERVER['PHP_SELF'], '.php') === 'page-exhibitor-form') echo 'active' ?>"><a href="/src/map.php">Booth Registration</a></li>
+                <!--<li class="<?php /*if(basename($_SERVER['PHP_SELF'], '.php') === 'page-exhibitor-form') echo 'active' */?>"><a href="/src/page-exhibitor-form.php">Exhibitor Register</a></li>-->
                 <li class="<?php if(basename($_SERVER['PHP_SELF'], '.php') === 'page-international-visitor-form') echo 'active' ?>"><a href="/src/page-international-visitor-form.php">International Visitor</a></li>
             </ul>
         </div>

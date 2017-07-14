@@ -1,15 +1,9 @@
 <?php
 
-session_start();
-
 require_once( '../vendor/autoload.php' );
 
 $image_width  = 585;
 $image_height = 448;
-if(!isset($_SESSION['exhibitor_data'])) {
-    header('Location: /');
-}
-$exhibitor_data = $_SESSION['exhibitor_data'];
 $spots = \App\DB::getSpots();
 ?>
 
@@ -44,7 +38,7 @@ $spots = \App\DB::getSpots();
 <body style="min-width: 960px;">
 
 <div>
-    <h1 class="text-center">Select spots - <?php echo $exhibitor_data['company_name'] ?></h1>
+    <h1 class="text-center">Select Booth Camps</h1>
     <div id="map-container">
         <div id="custom-map">
 			<?php foreach ( $spots as $spot ): ?>
@@ -121,10 +115,6 @@ $spots = \App\DB::getSpots();
 </div>
 <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-<script>
-    var exhibitorId = "<?php echo $exhibitor_data['id'] ?>";
-    var exhibitorEmail = "<?php echo $exhibitor_data['company_email'] ?>";
-</script>
 <script type="text/javascript" src="../js/script.js"></script>
 </body>
 </html>

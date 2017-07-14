@@ -1,2 +1,2 @@
-<?php require_once( 'header.php' ); ?>
-<?php require_once('footer.php');
+<?php require_once( 'src/header.php' ); ?>
+<?php require_once( 'src/footer.php' );

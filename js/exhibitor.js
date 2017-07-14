@@ -14,13 +14,19 @@
                 type: 'POST',
                 dataType: 'json',
                 data: $(this).serialize(),
-                success: function (msg) {
-                    $submit.text('Registered successfully ... redirecting').removeClass('btn-primary').addClass('btn-success btn-block');
-                    window.location = '/map.php';
+                success: function (data) {
+                    if(data.status === 'success') {
+                        console.log('Success: ', data);
+                        $submit.text('Registered successfully ... redirecting').removeClass('btn-primary').addClass('btn-success btn-block');
+                        window.location = '/src/map.php';
+                    } else {
+                        console.log('Error: ', data);
+                    }
                 },
-                error: function (err) {
+                error: function (err, a, b) {
+                    console.log(b);
                     $submit.text('Submit').removeClass('disabled');
-                    throw(err);
+                    throw(errMsg);
                 }
             });
             return false;

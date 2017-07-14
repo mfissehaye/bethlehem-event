@@ -20,7 +20,7 @@ $(function () {
         $finishButton.text('Loading');
         $.ajax({
             type: 'POST',
-            url: '/reserve.php',
+            url: '/src/reserve.php',
             data: {
                 exhibitorId: exhibitorId,
                 exhibitorEmail: exhibitorEmail,
@@ -28,7 +28,6 @@ $(function () {
             },
             dataType: 'json',
             success: function (result) {
-                console.log(result);
                 if(result.status === 'success') {
                     $finishButton.html('<strong>Finish Order</strong>');
                     var $priceModal = $('#price-modal');
@@ -50,14 +49,13 @@ $(function () {
     });
 
     (function doPoll() {
-        $.get('/get_reserved_spots.php', function(data) {
+        $.get('/src/get_reserved_spots.php', function(data) {
             reserveCustomAreas(data);
             setTimeout(doPoll, 1000);
         })
     })();
 
     function reserveCustomAreas(areaLabels) {
-        areaLabels = JSON.parse(areaLabels);
         $('.custom-area').each(function(i, v) {
             if(areaLabels.indexOf($(v).text()) !== -1) {
                 reservedSpots.spliceByValue($(v).text());

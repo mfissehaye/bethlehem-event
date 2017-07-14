@@ -3,13 +3,13 @@
 // reserve.php
 session_start();
 
-require_once('inc/db.php');
+require_once('db.php');
 
-header( 'Content-Type', 'application/json' );
+header( 'Content-Type: application/json' );
 $exhibitorId    = $_POST['exhibitorId'];
 $spots          = $_POST['spots'];
 $company_email  = $_POST['exhibitorEmail'];
-$returned_spots = reserveSpots($exhibitorId, $spots);
+$returned_spots = reserve_spots($exhibitorId, $spots);
 
 /*function sendEmail() {
 	global $company_email;
@@ -20,7 +20,7 @@ $returned_spots = reserveSpots($exhibitorId, $spots);
 	mail($company_email, 'Hello', 'You have successfully registered', $headers);
 }*/
 
-if(is_array($spots)) {
+if(is_array($returned_spots)) {
 	echo json_encode(['status' => 'success', 'spots' => $returned_spots] );
 } else {
 	echo json_encode(['status' => 'failure', 'msg' => $database_error ]);

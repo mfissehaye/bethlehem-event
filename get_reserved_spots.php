@@ -1,6 +1,6 @@
 <?php
 
-require_once('inc/db.php');
+require_once( 'db.php' );
 
 header('Content-Type', 'application/json');
 $reserved_spot_ids = get_reserved_spot_ids();

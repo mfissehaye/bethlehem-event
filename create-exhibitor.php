@@ -3,7 +3,7 @@
 // create-exhibitor.php
 
 session_start();
-require_once( 'inc/db.php' );
+require_once( 'db.php' );
 
 // register organization
 header( 'Content-Type', 'application/json' );

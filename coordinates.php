@@ -54,14 +54,14 @@ $coordinates = [
 	51 => [ 'x' => 30, 'y' => 231 ],
 ];
 
-require_once('inc/db.php');
-$connection = db_connect();
+require_once( 'db.php' );
 foreach($coordinates as $index => $coordinate) {
 	$x = $coordinate['x'];
 	$y = $coordinate['y'];
 	$rotate = isset($coordinate['rotate']) && $coordinate['rotate'] ? 1 : 0;
 	$reserved = isset($coordinate['reserved']) && $coordinate['reserved'] ? 1 : 0;
 	$query = "INSERT INTO spots (id, coordinate_x, coordinate_y, rotated, reserved) VALUES ('$index', '$x', '$y', $rotate, $reserved)";
+	db_connect();
 	if($connection->exec($query)) {
 		echo "Inserted id: ", $index;
 	} else {

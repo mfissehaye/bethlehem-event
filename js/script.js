@@ -31,11 +31,12 @@ $(function () {
                 console.log(result);
                 if(result.status === 'success') {
                     $finishButton.html('<strong>Finish Order</strong>');
-                    $finishButton.removeClass('disabled');
-
                     var $priceModal = $('#price-modal');
                     $priceModal.modal('show');
                     var $modalSpots = $('#modal-spots');
+                    result.spots.forEach(function(v, i) {
+                        $modalSpots.append('<span style="width: 20px; height: 20px; background: greenyellow; color: black; font-weight: bolder; font-size: 10px; display: inline-block; text-align: center; line-height: 20px; margin: 10px;">' + v + '</span>')
+                    })
                 } else {
                     throw new Error('Unable to complete request: ', result);
                 }

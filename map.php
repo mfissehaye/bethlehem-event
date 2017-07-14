@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+require_once('db.php');
 
 $image_width  = 585;
 $image_height = 448;
@@ -8,7 +9,6 @@ if(!isset($_SESSION['exhibitor_data'])) {
     header('Location: /');
 }
 $exhibitor_data = $_SESSION['exhibitor_data'];
-require_once('inc/db.php');
 $spots = get_spots();
 ?>
 
@@ -92,7 +92,27 @@ $spots = get_spots();
                     <p class="alert alert-success">You have been registered successfully. You will receive a confirmation email shortly.
                         <a href="http://mail.google.com" target="_blank">Check your Inbox</a></p>
                     <h1 class="text-uppercase" style="font-size: 16px;"><strong>Reserved Spots</strong></h1>
-                    <div id="modal-spots"></div>
+                    <div id="modal-spots" style="min-height: 50px;"></div>
+                    <table class="table">
+                        <tr>
+                            <td colspan="2"><strong>Qty.</strong></td>
+                            <td><strong>Price</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span id="spaces-count">0</span> &times; 2 sq.m</td>
+                            <td><strong class="label label-warning">&times; 3 days</strong></td>
+                            <td><span id="price">0</span> USD + 15%</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Registration Fee</td>
+                            <td><strong>20 USD</strong></td>
+                        </tr>
+                        <tr style="background: #bbbbbb">
+                            <td colspan="2"></td>
+                            <td><strong><span id="total-price">20</span> USD</strong></td>
+                        </tr>
+                    </table>
+                    <p>Deposit the total price to CBE Account number: <span class="label label-primary"><?php echo BANK_ACCOUNT_NUMBER ?></span></p>
                 </div>
             </div>
         </div>

@@ -2,11 +2,15 @@
     $(document).ready(function () {
         var $exhibitorForm = $('#exhibitor-form');
         var $submit = $('#submit-exhibitor-form');
-        $exhibitorForm.on('submit', function (e) {
+        var $internationalVisitorForm = $('#international-visitor-form');
+
+        var $formSelectors = $('#exhibitor-form, #international-visitor-form');
+
+        $formSelectors.on('submit', function (e) {
             e.preventDefault();
             $submit.text('Loading').addClass('disabled');
             $.ajax({
-                url: '/create-exhibitor.php',
+                url: $(this).attr('action'),
                 type: 'POST',
                 dataType: 'json',
                 data: $(this).serialize(),

@@ -34,9 +34,6 @@ class Exhibitor {
 		);
 
 		foreach ( $required_attributes as $required_attribute ) {
-			// mocking
-			$_POST[$required_attribute] = rand_str(20);
-			$_POST['company_sex'] = 'M';
 
 			if ( ! isset( $_POST[ $required_attribute ] ) ) {
 				$errors[] = [ 'key' => $required_attribute, 'msg' => $required_attribute . ' is required' ];

@@ -6,6 +6,12 @@ session_start();
 require_once( '../vendor/autoload.php' );
 
 //header( 'Content-Type: application/json' );
+
+if(!isset($_POST['exhibitorId']) || !isset($_POST['spots']) || !isset($_POST['exhibitorEmail'])) {
+	header('Content-Type: application/json');
+	echo json_encode(['status' => 'failure', 'msg' => 'No spots specified']);
+	exit();
+}
 $exhibitorId       = isset( $_POST['exhibitorId'] ) ? $_POST['exhibitorId'] : '21';
 $spots             = isset( $_POST['spots'] ) ? $_POST['spots'] : [ 21,22,23 ];
 $company_email     = isset( $_POST['exhibitorEmail'] ) ? $_POST['exhibitorEmail'] : 'merhawifissehaye@gmail.com';

@@ -61,6 +61,7 @@
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary" id="submit-exhibitor-form" name="submit_form">Submit</button>
+            <a href="#" class="text-danger" id="cancel-exhibitor-form">Cancel and reselect spots</a>
         </div>
     </fieldset>
 </form>

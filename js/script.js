@@ -23,6 +23,8 @@ $(function () {
     var $modalTotalPrice = $('#modal-total-price');
     var $modalPriceTable = $('#modal-price-table').hide();
     var submitted = false;
+    var $sendingEmail = $('<p><i class="fa fa-spin fa-spinner"></i> Sending Email</p>').hide();
+    var $cancelExhibitorForm = $('#cancel-exhibitor-form');
 
     $finishButton.on('click', function (e) {
 
@@ -32,7 +34,14 @@ $(function () {
             if(!submitted) {
                 $warningMessage.show();
                 $priceModal.modal('show');
+            } else {
+                location.reload();
             }
+        });
+
+        $cancelExhibitorForm.on('click', function() {
+            submitted = true;
+            $priceModal.modal('hide');
         });
 
         $priceModal.on('show.bs.modal', function() {
@@ -72,8 +81,6 @@ $(function () {
 
                 success: function (result) {
                     if (result.status === 'success') {
-                        $submitExhibitorFormButton.removeClass('disabled');
-                        $submitExhibitorFormButton.removeClass('Submit');
                         $priceModal.scrollTop(0);
                         $warningMessage.hide();
                         $successMessage.show();
@@ -84,6 +91,12 @@ $(function () {
                             $modalReservedSpots.show();
                             $modalReservedSpots.find('#modal-spots').append('<span style="width: 20px; height: 20px; background: greenyellow; color: black; font-weight: bolder; font-size: 10px; display: inline-block; text-align: center; line-height: 20px; margin: 10px;">' + v + '</span>');
                         });
+
+                        reservedSpots.length = 0;
+                        calculatePrice();
+
+                        // Sending email
+                        $sendingEmail.show().insertBefore($successMessage);
                     } else {
 
                     }
@@ -91,8 +104,6 @@ $(function () {
                     submitted = true;
                 },
                 error: function (xhr, errType, errMsg) {
-                    $finishButton.html('<strong>Finish Order</strong>');
-                    $finishButton.removeClass('disabled');
                     $(xhr.responseText).appendTo($priceModal.find('.modal-body'));
                 }
             });

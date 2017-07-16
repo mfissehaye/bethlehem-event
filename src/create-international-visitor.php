@@ -2,7 +2,13 @@
 
 // create-exhibitor.php
 
-session_start();
-// register organization
-header( 'Content-Type: application/json' );
-json_encode(['msg' => 'Welcome']);
+use App\DB;
+
+require '../vendor/autoload.php';
+
+$row = DB::createVisitor($_POST, 'international');
+
+require_once('header.php');
+?>
+
+<p class="alert alert-success">You have registered successfully as an international visitor.</p>

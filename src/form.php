@@ -18,7 +18,7 @@ if(isset($_SESSION['exhibitor_data'])) {
 	extract($_SESSION['exhibitor_data']);
 }
 ?>
-<form action="<?php echo $form_action ?>" method="POST" id="<?php echo $form_id ?>" class="col-md-5">
+<form action="<?php echo $form_action ?>" method="POST" id="<?php echo $form_id ?>">
     <fieldset>
         <legend>Company Information</legend>
         <div class="form-group">
@@ -114,7 +114,7 @@ if(isset($_SESSION['exhibitor_data'])) {
                    placeholder="Telephone" required value="<?php echo $contact_person_telephone ?>">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="submit-exhibitor-form" name="submit_form">Submit</button>
+            <button type="submit" class="btn btn-primary" id="submit-exhibitor-form">Submit</button>
         </div>
     </fieldset>
 </form>

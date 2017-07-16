@@ -7,13 +7,14 @@ require_once( '../vendor/autoload.php' );
 
 //header( 'Content-Type: application/json' );
 
-if(!isset($_POST['spots'])) {
-	header('Content-Type: application/json');
-	echo json_encode(['status' => 'failure', 'msg' => 'No spots specified']);
+if ( ! isset( $_POST['spots'] ) && ! isset( $_POST['company-name'] ) ) {
+	header( 'Content-Type: application/json' );
+	echo json_encode( [ 'status' => 'failure', 'msg' => 'No spots specified' ] );
 	exit();
 }
-$spots             = $_POST['spots'];
-$reserved_spot_ids = App\DB::reserveSpots($spots );
+$spots = $_POST['spots'];
+unset( $_POST['spots'] );
+$reserved_spot_ids = App\DB::reserveSpots( $_POST, $spots );
 
 /*function sendEmail() {
 	global $company_email;

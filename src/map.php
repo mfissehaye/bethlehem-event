@@ -75,7 +75,7 @@ $spots = \App\DB::getSpots();
                     <td><strong><span id="total-price">20</span> USD</strong></td>
                 </tr>
             </table>
-            <a href="#" class="btn btn-danger btn-block text-uppercase disabled" id="finish-button"><strong>Finish
+            <a href="#" class="btn btn-danger btn-block text-uppercase disabled" id="finish-button" data-toggle="modal" data-target="#price-modal"><strong>Finish
                     Order</strong></a>
             <br><a href="/index.php">&laquo; Go back to edit organization info</a>
         </div>
@@ -84,11 +84,17 @@ $spots = \App\DB::getSpots();
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p class="alert alert-success">You have been registered successfully. You will receive a confirmation email shortly.
-                        <a href="http://mail.google.com" target="_blank">Check your Inbox</a></p>
-                    <h1 class="text-uppercase" style="font-size: 16px;"><strong>Reserved Spots</strong></h1>
-                    <div id="modal-spots" style="min-height: 50px;"></div>
-                    <table class="table">
+                    <p class="alert alert-danger" id="warning-message">Fill in and submit the form</p>
+                    <div id="success-message">
+                        <p class="alert alert-success">You have been registered successfully. You will receive a confirmation email shortly.
+                            <a href="http://mail.google.com" target="_blank">Check your Inbox</a>
+                            <br><span><strong>Deposit the <a href="#" id="total-price-indicator">total price</a>to CBE Account number: <strong><?php echo BANK_ACCOUNT_NUMBER ?></strong> in the next <?php echo DEPOSIT_DEADLINE_DAYS ?> day <?php echo (DEPOSIT_DEADLINE_DAYS > 1) ? 's' : '' ?></strong></span></p>
+                    </div>
+                    <div id="modal-reserved-spots">
+                        <h1 class="text-uppercase" style="font-size: 16px;"><strong>Reserved Spots</strong></h1>
+                        <div id="modal-spots" style="min-height: 50px;"></div>
+                    </div>
+                    <table class="table" id="modal-price-table">
                         <tr>
                             <td colspan="2"><strong>Qty.</strong></td>
                             <td><strong>Price</strong></td>
@@ -102,12 +108,15 @@ $spots = \App\DB::getSpots();
                             <td colspan="2">Registration Fee</td>
                             <td><strong>20 USD</strong></td>
                         </tr>
-                        <tr style="background: #bbbbbb">
+                        <tr style="background: #bbbbbb" id="modal-total-price">
                             <td colspan="2"></td>
                             <td><strong><span id="total-price">20</span> USD</strong></td>
                         </tr>
                     </table>
-                    <p>Deposit the total price to CBE Account number: <span class="label label-primary"><?php echo BANK_ACCOUNT_NUMBER ?></span></p>
+                    <?php
+                    $form_id = 'exhibitor-form';
+                    $form_action = '/src/create-exhibitor.php';
+                    require_once('exhibitor-form.php'); ?>
                 </div>
             </div>
         </div>
@@ -115,6 +124,10 @@ $spots = \App\DB::getSpots();
 </div>
 <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script>
+    var bankAccountNumber = "<?php echo BANK_ACCOUNT_NUMBER ?>";
+    var depositDeadlineDays = "<?php echo DEPOSIT_DEADLINE_DAYS ?>";
+</script>
 <script type="text/javascript" src="../js/script.js"></script>
 </body>
 </html>

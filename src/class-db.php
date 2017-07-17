@@ -4,6 +4,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use LessQL\Database;
 use LessQL\Result;
 
@@ -19,6 +20,7 @@ class DB {
 
 	public static function createExhibitor( $data ) {
 		$db  = self::connect();
+		$data['token'] = md5(uniqid(rand(), true));
 		$row = $db->createRow( 'exhibitors', $data );
 		$row->save();
 
@@ -34,7 +36,16 @@ class DB {
 	public static function getReservedSpots() {
 		$db = self::connect();
 
-		return $db->table( 'spots' )->where( 'reserved', 1 );
+		$results = $db->table( 'spots' )->where( 'reserved', 1 );
+		$final_results = [];
+		foreach ( $results as $spot ) {
+			$date_reserved = Carbon::parse( $spot['date_reserved'] );
+			if($spot['approved'] || ( $spot['reserved'] && Carbon::now()->lt( $date_reserved->addHours( DEPOSIT_DEADLINE_HOURS ) ) )) {
+				$final_results[] = $spot;
+			}
+		}
+
+		return $final_results;
 	}
 
 	public static function reserveSpots( $exhibitorData, $spots ) {

@@ -103,7 +103,8 @@ $(function () {
                             type: 'post',
                             url: '/src/send-email.php',
                             data: {
-                                email: email
+                                email: email,
+                                token: result.token
                             },
                             success: function(response) {
                                 $sendingEmail.remove();

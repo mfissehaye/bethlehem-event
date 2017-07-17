@@ -5,7 +5,6 @@
 use App\DB;
 
 require '../vendor/autoload.php';
-
 $row = DB::createVisitor($_POST, 'international');
 
 require_once('header.php');

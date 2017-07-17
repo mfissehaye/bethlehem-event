@@ -29,9 +29,9 @@ class Exhibitor {
 
 			return;
 		}
-
-		$_SESSION['exhibitor_data'] = DB::createExhibitor( $_POST )->getData();
-		echo json_encode( [ 'status' => 'success' ] );
+		$saved_exhibitor            = DB::createExhibitor( $_POST )->getData();
+		$_SESSION['exhibitor_data'] = $saved_exhibitor;
+		echo json_encode( [ 'status' => 'success', 'token' => $saved_exhibitor['token'] ] );
 	}
 }
 

@@ -1,10 +1,12 @@
 <?php
 
-require_once( '../vendor/autoload.php' );
+use Carbon\Carbon;
 
+require_once( '../vendor/autoload.php' );
+require_once('config.php');
 $image_width  = 585;
 $image_height = 448;
-$spots = \App\DB::getSpots();
+$spots        = \App\DB::getSpots();
 ?>
 
 <!doctype html>
@@ -43,7 +45,7 @@ $spots = \App\DB::getSpots();
         <div id="custom-map">
 			<?php foreach ( $spots as $spot ): ?>
 				<?php $additional_classes = $spot['rotated'] ? ' rotate' : ''; ?>
-				<?php $additional_classes .= $spot['reserved'] ? ' reserved' : ''; ?>
+				<?php $additional_classes .= in_array( $spot, \App\DB::getReservedSpots() ) ? ' reserved' : ''; ?>
                 <span class="custom-area red-tooltip <?php echo $additional_classes ?>"
                       style="left: <?php echo $spot['coordinate_x'] ?>px; top: <?php echo $spot['coordinate_y'] ?>px" <?php if ( $spot['reserved'] )
 					echo 'data-toggle="tooltip" title="This spot is reserved"' ?>><?php echo $spot['id'] ?></span>
@@ -75,7 +77,8 @@ $spots = \App\DB::getSpots();
                     <td><strong><span id="total-price">20</span> USD</strong></td>
                 </tr>
             </table>
-            <a href="#" class="btn btn-danger btn-block text-uppercase disabled" id="finish-button" data-toggle="modal" data-target="#price-modal"><strong>Finish
+            <a href="#" class="btn btn-danger btn-block text-uppercase disabled" id="finish-button" data-toggle="modal"
+               data-target="#price-modal"><strong>Finish
                     Order</strong></a>
             <br><a href="/index.php">&laquo; Go back to edit organization info</a>
         </div>
@@ -86,9 +89,11 @@ $spots = \App\DB::getSpots();
                 <div class="modal-body">
                     <p class="alert alert-danger" id="warning-message">Fill in and submit the form</p>
                     <div id="success-message">
-                        <p class="alert alert-success">You have been registered successfully. You will receive a confirmation email shortly.
+                        <p class="alert alert-success">You have been registered successfully. You will receive a
+                            confirmation email shortly.
                             <a href="http://mail.google.com" target="_blank">Check your Inbox</a>
-                            <br><span><strong>Deposit the <a href="#" id="total-price-indicator">total price</a>to CBE Account number: <strong><?php echo BANK_ACCOUNT_NUMBER ?></strong> in the next <?php echo DEPOSIT_DEADLINE_DAYS ?> day <?php echo (DEPOSIT_DEADLINE_DAYS > 1) ? 's' : '' ?></strong></span></p>
+                            <br><span><strong>Deposit the <a href="#" id="total-price-indicator">total price</a>to CBE Account number: <strong><?php echo BANK_ACCOUNT_NUMBER ?></strong> in the next <?php echo DEPOSIT_DEADLINE_HOURS  ?>
+                                    hour <?php echo ( DEPOSIT_DEADLINE_HOURS > 1 ) ? 's' : '' ?></strong></span></p>
                     </div>
                     <div id="modal-reserved-spots">
                         <h1 class="text-uppercase" style="font-size: 16px;"><strong>Reserved Spots</strong></h1>
@@ -113,10 +118,10 @@ $spots = \App\DB::getSpots();
                             <td><strong><span id="total-price">20</span> USD</strong></td>
                         </tr>
                     </table>
-                    <?php
-                    $form_id = 'exhibitor-form';
-                    $form_action = '/src/create-exhibitor.php';
-                    require_once('exhibitor-form.php'); ?>
+					<?php
+					$form_id     = 'exhibitor-form';
+					$form_action = '/src/create-exhibitor.php';
+					require_once( 'exhibitor-form.php' ); ?>
                 </div>
             </div>
         </div>
@@ -126,7 +131,7 @@ $spots = \App\DB::getSpots();
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script>
     var bankAccountNumber = "<?php echo BANK_ACCOUNT_NUMBER ?>";
-    var depositDeadlineDays = "<?php echo DEPOSIT_DEADLINE_DAYS ?>";
+    var depositDeadlineDays = "<?php echo DEPOSIT_DEADLINE_HOURS ?>";
 </script>
 <script type="text/javascript" src="../js/script.js"></script>
 </body>

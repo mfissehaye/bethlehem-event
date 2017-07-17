@@ -72,11 +72,12 @@ $(function () {
             e.preventDefault();
             $submitExhibitorFormButton.addClass('disabled');
             $submitExhibitorFormButton.text('Loading');
-            var postData = {};
+            var data = getExhibitorFormData();
+            var email = data.email;
             $.ajax({
                 type: 'POST',
                 url: '/src/reserve.php',
-                data: getExhibitorFormData(),
+                data: data,
                 dataType: 'json',
 
                 success: function (result) {
@@ -97,6 +98,18 @@ $(function () {
 
                         // Sending email
                         $sendingEmail.show().insertBefore($successMessage);
+
+                        $.ajax({
+                            type: 'post',
+                            url: '/src/send-email.php',
+                            data: {
+                                email: email
+                            },
+                            success: function(response) {
+                                $sendingEmail.remove();
+                                console.log(response);
+                            }
+                        });
                     } else {
 
                     }

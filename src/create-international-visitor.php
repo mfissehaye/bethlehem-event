@@ -27,10 +27,10 @@ if(isset($_POST['submit-form'])) {
     }
 }
 
+require_once('header.php');
+
 foreach($errors as $error): ?>
     <p><?php echo $error ?></p>
 <?php endforeach ?>
-
-<?php require_once('header.php'); ?>
 
 <p class="alert alert-success">You have registered successfully as an international visitor.</p>

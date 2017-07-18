@@ -24,6 +24,8 @@ if(isset($_POST['submit-form'])) {
 
 }
 
+require_once( 'header.php' );
+
 $token   = isset($_GET['token']) ? $_GET['token'] : '';
 $company = \App\DB::getCompanyByToken( $token );
 if ( ! count( $company ) ) {
@@ -36,8 +38,6 @@ foreach($errors as $error): ?>
     <p class="alert alert-danger"><?php echo $error ?></p>
 
 <?php endforeach;
-
-require_once( 'header.php' );
 
 if ( count( $visitors ) ): ?>
     <p><a href="#visitors-list">View registered exhibitors list</a></p>

@@ -2,7 +2,7 @@
 
 require '../vendor/autoload.php';
 
-if(isset($_POST['email'])) {
+if(!isset($_POST['email'])) {
 	header('Content-Type: application/json');
 	echo json_encode(['status' => 'failure', 'error' => 'You must provide email address']);
 	exit();

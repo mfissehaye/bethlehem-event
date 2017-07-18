@@ -21,7 +21,7 @@ try {
 			'from' => 'Tester Bete Software<test@betesoftware.com>',
 			'to' => $email,
 			'subject' => "Hello $companyName",
-			'text' => "<html><body><h1>Welcome to the Exhibition</h1><p>You have been registered to exhibition. Click on the following link to insert exhibitors from your organization. <a href=\"$link\">$link</a></p></body></html>"
+			'html' => "<html><body><h1>Welcome to the Exhibition</h1><p>You have been registered to exhibition. Click on the following link to insert exhibitors from your organization. <a href=\"$link\">$link</a></p></body></html>"
 		)
 	));
 	echo json_encode(['status' => 'success', 'message' => $response->getBody()]);

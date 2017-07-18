@@ -3,14 +3,14 @@
 require '../vendor/autoload.php';
 
 $msgClient = new \Mailgun\Mailgun( 'key-81ca3afdb5b337bfc40d2ee4a1393521' );
-$domain    = "sandboxa95bf897f1554f39b8796949f40f36c1.mailgun.org";
+$domain    = "https://api.mailgun.net/v3/sandboxa95bf897f1554f39b8796949f40f36c1.mailgun.org";
 
 $result = $msgClient->sendMessage( "$domain",
 	array(
 		'from'    => 'Excited User <test.betesoftware.com>',
-		'to'      => 'Merhawi Fissehaye <merhawifissehaye@gmail.com>',
+		'to'      => 'Brikty Fissehaye <briktyfissehaye@gmail.com>',
 		'subject' => 'Hello',
-		'text' => 'Teset some mailgun awesomeness'
+		'text' => 'Testing from my PHP code'
 	) );
 
 header('Content-Type', 'application/json');

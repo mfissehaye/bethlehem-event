@@ -26,7 +26,7 @@ try {
 	));
 	echo json_encode(['status' => 'success', 'message' => $response->getBody()]);
 } catch(\GuzzleHttp\Exception\ClientException $e) {
-	echo json_encode(['status' => 'failure', 'message' => 'Could not send email. Please try again.']);
+	echo json_encode(['status' => 'failure', 'message' => 'Could not send email. Please try again.' . $e->getMessage()]);
 }
 
 /*$msgClient = new \Mailgun\Mailgun( 'key-81ca3afdb5b337bfc40d2ee4a1393521' );

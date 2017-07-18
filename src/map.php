@@ -3,10 +3,17 @@
 use Carbon\Carbon;
 
 require_once( '../vendor/autoload.php' );
-require_once('config.php');
+require_once( 'config.php' );
 $image_width  = 585;
 $image_height = 448;
 $spots        = \App\DB::getSpots();
+
+$reserved_spots = \App\DB::getReservedSpots();
+function is_spot_reserved( $spot ) {
+    global $reserved_spot_ids;
+	return in_array( $spot, $reserved_spot_ids );
+}
+
 ?>
 
 <!doctype html>
@@ -45,7 +52,7 @@ $spots        = \App\DB::getSpots();
         <div id="custom-map">
 			<?php foreach ( $spots as $spot ): ?>
 				<?php $additional_classes = $spot['rotated'] ? ' rotate' : ''; ?>
-				<?php $additional_classes .= in_array( $spot, \App\DB::getReservedSpots() ) ? ' reserved' : ''; ?>
+				<?php $additional_classes .= is_spot_reserved( $spot ) ? ' reserved' : ''; ?>
                 <span class="custom-area red-tooltip <?php echo $additional_classes ?>"
                       style="left: <?php echo $spot['coordinate_x'] ?>px; top: <?php echo $spot['coordinate_y'] ?>px" <?php if ( $spot['reserved'] )
 					echo 'data-toggle="tooltip" title="This spot is reserved"' ?>><?php echo $spot['id'] ?></span>
@@ -92,7 +99,7 @@ $spots        = \App\DB::getSpots();
                         <p class="alert alert-success">You have been registered successfully. You will receive a
                             confirmation email shortly.
                             <a href="http://mail.google.com" target="_blank">Check your Inbox</a>
-                            <br><span><strong>Deposit the <a href="#" id="total-price-indicator">total price</a>to CBE Account number: <strong><?php echo BANK_ACCOUNT_NUMBER ?></strong> in the next <?php echo DEPOSIT_DEADLINE_HOURS  ?>
+                            <br><span><strong>Deposit the <a href="#" id="total-price-indicator">total price</a>to CBE Account number: <strong><?php echo BANK_ACCOUNT_NUMBER ?></strong> in the next <?php echo DEPOSIT_DEADLINE_HOURS ?>
                                     hour <?php echo ( DEPOSIT_DEADLINE_HOURS > 1 ) ? 's' : '' ?></strong></span></p>
                     </div>
                     <div id="modal-reserved-spots">

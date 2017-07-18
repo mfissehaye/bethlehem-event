@@ -54,19 +54,21 @@ class DB {
 
 		$free_spots = $db->table( 'spots' )->where( 'id', $spots )->where( 'reserved', 0 )->where( 'approved', 0 );
 
-		$reserved_spot_ids = [];
+		$result = [];
 
 		$exhibitor = self::createExhibitor( $exhibitorData );
+		$result['token'] = $exhibitor['token'];
 
 		/** @var Result $spot */
+		$result['ids'] = [];
 		foreach ( $free_spots as $spot ) {
-			$reserved_spot_ids[]  = $spot['id'];
+			$result['ids'][]  = $spot['id'];
 			$spot['reserved']     = 1;
 			$spot['exhibitor_id'] = $exhibitor->getId();
 			$spot->save();
 		}
 
-		return $reserved_spot_ids;
+		return $result;
 	}
 
 	public static function createVisitor( $visitorData, $type = 'organization' ) {

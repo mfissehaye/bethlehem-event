@@ -89,9 +89,10 @@ $(function () {
                         $exhibitorForm.remove();
 
                         $modalPriceTable.show();
-                        reservedSpots.forEach(function (v, i) {
+                        var returnedSpots = result.spot_ids;
+                        returnedSpots.forEach(function (v, i) {
                             $modalReservedSpots.show();
-                            $modalReservedSpots.find('#modal-spots').append('<span style="width: 20px; height: 20px; background: greenyellow; color: black; font-weight: bolder; font-size: 10px; display: inline-block; text-align: center; line-height: 20px; margin: 10px;">' + v + '</span>');
+                            $modalReservedSpots.find('#modal-spots').append('<span style="width: 20px; height: 20px; background: greenyellow; color: black; font-weight: bolder; font-size: 10px; display: inline-block; text-align: center; line-height: 20px; margin: 10px;">' + v.id + '</span>');
                         });
 
                         reservedSpots.length = 0;

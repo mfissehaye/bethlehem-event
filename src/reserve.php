@@ -14,11 +14,11 @@ if ( ! isset( $_POST['spots'] ) && ! isset( $_POST['company-name'] ) ) {
 }
 $spots = $_POST['spots'];
 unset( $_POST['spots'] );
-$reserved_spot_ids = App\DB::reserveSpots( $_POST, $spots );
+$result = App\DB::reserveSpots( $_POST, $spots );
 
 header( 'Content-Type: application/json' );
-if ( ! count( $reserved_spot_ids ) ) {
+if ( ! count( $result['ids']) ) {
 	echo json_encode( [ 'status' => 'failure', 'msg' => 'All spots are reserved.' ] );
 } else {
-	echo json_encode( [ 'status' => 'success', 'spots' => $reserved_spot_ids ] );
+	echo json_encode( [ 'status' => 'success', 'spot_ids' => $result['ids'], 'token' => $result['token']] );
 }

@@ -5,6 +5,7 @@
 use App\DB;
 
 require '../vendor/autoload.php';
+require_once('send-email.php');
 
 $errors = [];
 
@@ -21,7 +22,6 @@ if(isset($_POST['submit-form'])) {
 	}
 
 	if(!count($errors)) {
-		require_once('send-email.php');
 		send_email($_POST['company_first_name'], $_POST['email']);
 		$row = DB::createVisitor($_POST, 'international');
     }

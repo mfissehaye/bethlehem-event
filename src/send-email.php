@@ -2,7 +2,6 @@
 
 require '../vendor/autoload.php';
 
-
 function send_email($name, $email) {
 
 	header( 'Content-Type: application/json' );

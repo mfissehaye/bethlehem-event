@@ -11,7 +11,7 @@ if(!isset($_POST['email'])) {
 $email = $_POST['email'];
 $token = $_POST['token'];
 $companyName = $_POST['company_name'];
-$link = "http://qa1.betesoftware.com/src/create-exhibitor.php?token=$token";
+$link = "http://qa1.betesoftware.com/src/register-visitor.php?token=$token";
 
 header('Content-Type: application/json');
 $client = new \GuzzleHttp\Client;

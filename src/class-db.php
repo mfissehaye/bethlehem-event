@@ -79,6 +79,17 @@ class DB {
 
 		return $row;
 	}
+
+	public static function getCompanyByToken( $token ) {
+		$db = self::connect();
+		$row = $db->table('exhibitors')->where('token', $token);
+		return $row->fetch();
+	}
+
+	public static function getVisitorsByCompanyId( $company_id ) {
+		$db = self::connect();
+		return $db->table('visitors')->where('company_id', $company_id)->fetchAll();
+	}
 }
 
 /*function get_spots() {

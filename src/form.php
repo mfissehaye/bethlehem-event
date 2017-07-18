@@ -1,31 +1,35 @@
 <?php
-$company_name = '';
-$company_first_name = '';
-$company_last_name = '';
-$company_median_name = '';
-$company_sex = '';
-$company_email = '';
-$contact_person_name = '';
-$contact_person_passport_number = '';
-$contact_person_passport_given_date = '';
+$company_name                        = '';
+$company_first_name                  = '';
+$company_last_name                   = '';
+$company_median_name                 = '';
+$company_sex                         = '';
+$company_email                       = '';
+$contact_person_name                 = '';
+$contact_person_passport_number      = '';
+$contact_person_passport_given_date  = '';
 $contact_person_passport_expiry_date = '';
-$contact_person_nationality = '';
-$contact_person_staying_date = '';
-$contact_person_address_in_addis = '';
-$contact_person_hotel = '';
-$contact_person_telephone = '';
-if(isset($_SESSION['exhibitor_data'])) {
-	extract($_SESSION['exhibitor_data']);
+$contact_person_nationality          = '';
+$contact_person_staying_date         = '';
+$contact_person_address_in_addis     = '';
+$contact_person_hotel                = '';
+$contact_person_telephone            = '';
+if ( isset( $_SESSION['exhibitor_data'] ) ) {
+	extract( $_SESSION['exhibitor_data'] );
 }
 ?>
 <form action="<?php echo $form_action ?>" method="POST" id="<?php echo $form_id ?>">
     <fieldset>
         <legend>Company Information</legend>
-        <div class="form-group">
-            <label for="company-name">Company's Name</label>
-            <input type="text" class="form-control" id="company-name" name="company_name"
-                   placeholder="Company's Name" required value="<?php echo $company_name ?>">
-        </div>
+		<?php if ( basename( $_SERVER['PHP_SELF'], '.php' ) === 'page-international-visitor-form' ): ?>
+            <div class="form-group">
+                <label for="company-name">Company's Name</label>
+                <input type="text" class="form-control" id="company-name" name="company_name"
+                       placeholder="Company's Name" required value="<?php echo $company_name ?>">
+            </div>
+		<?php else: ?>
+            <input type="hidden" name="company_id" value="<?php echo $company_id ?>">
+		<?php endif ?>
         <div class="form-group">
             <label for="first-name">First Name</label>
             <input type="text" class="form-control" id="first-name" name="company_first_name"
@@ -114,7 +118,7 @@ if(isset($_SESSION['exhibitor_data'])) {
                    placeholder="Telephone" required value="<?php echo $contact_person_telephone ?>">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="submit-exhibitor-form">Submit</button>
+            <button type="submit" class="btn btn-primary" id="submit-exhibitor-form" name="submit-form">Submit</button>
         </div>
     </fieldset>
 </form>

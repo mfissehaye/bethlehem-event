@@ -85,8 +85,7 @@ function is_spot_reserved( $spot ) {
                 </tr>
             </table>
             <a href="#" class="btn btn-danger btn-block text-uppercase disabled" id="finish-button" data-toggle="modal"
-               data-target="#price-modal"><strong>Finish
-                    Order</strong></a>
+               data-target="#price-modal"><strong>Proceed</strong></a>
             <br><a href="/index.php">&laquo; Go back to edit organization info</a>
         </div>
     </div>

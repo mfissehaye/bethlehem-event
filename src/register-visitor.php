@@ -17,8 +17,8 @@ if(isset($_POST['submit-form'])) {
 
     if(!count($errors)) {
         // send email
-        $_POST['email'] = $_POST['company_email'];
         require_once('send-email.php');
+        send_email($_POST['company_first_name'], $_POST['email']);
 	    $visitor = \App\DB::createVisitor($_POST, 'organization');
     }
 

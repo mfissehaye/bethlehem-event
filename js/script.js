@@ -104,7 +104,7 @@ $(function () {
 
                         $.ajax({
                             type: 'post',
-                            url: '/src/send-email.php',
+                            url: '/src/send-email-json.php',
                             data: {
                                 email: email,
                                 company_name: companyName,

@@ -82,6 +82,7 @@ $(function () {
                 dataType: 'json',
 
                 success: function (result) {
+                    console.log(result);
                     if (result.status === 'success') {
                         $priceModal.scrollTop(0);
                         $warningMessage.hide();
@@ -92,7 +93,7 @@ $(function () {
                         var returnedSpots = result.spot_ids;
                         returnedSpots.forEach(function (v, i) {
                             $modalReservedSpots.show();
-                            $modalReservedSpots.find('#modal-spots').append('<span style="width: 20px; height: 20px; background: greenyellow; color: black; font-weight: bolder; font-size: 10px; display: inline-block; text-align: center; line-height: 20px; margin: 10px;">' + v.id + '</span>');
+                            $modalReservedSpots.find('#modal-spots').append('<span style="width: 20px; height: 20px; background: greenyellow; color: black; font-weight: bolder; font-size: 10px; display: inline-block; text-align: center; line-height: 20px; margin: 10px;">' + v + '</span>');
                         });
 
                         reservedSpots.length = 0;

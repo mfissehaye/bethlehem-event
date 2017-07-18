@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
+    'Mailgun' => array($vendorDir . '/mailgun/mailgun-php/src'),
     '' => array($vendorDir . '/morris/lessql/src'),
 );

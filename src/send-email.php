@@ -1,20 +1,17 @@
 <?php
 
-$to = 'merhawifissehaye@gmail.com';
-$subject = 'This is the subject';
-$body = '<div class="">Hello Hello</div>';
+require '../vendor/autoload.php';
 
-$headers = 'From: YourLogoName test@qa1.betesoftware.com' . "\r\n" ;
-$headers .='Reply-To: '. $to . "\r\n" ;
-$headers .='X-Mailer: PHP/' . phpversion();
-$headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
-if(mail($to, $subject, $body,$headers)) {
-    header('Content-Type: application/json');
-    json_encode(['status' => 'success', 'message' => 'Mail has been sent');
-}
-else
-{
-    header('Content-Type: application/json');
-    json_encode(['status' => 'failure', 'message' => 'Message sending failed']);
-}
+$msgClient = new \Mailgun\Mailgun( 'key-81ca3afdb5b337bfc40d2ee4a1393521' );
+$domain    = "sandboxa95bf897f1554f39b8796949f40f36c1.mailgun.org";
+
+$result = $msgClient->sendMessage( "$domain",
+	array(
+		'from'    => 'Excited User <test.betesoftware.com>',
+		'to'      => 'Merhawi Fissehaye <merhawifissehaye@gmail.com>',
+		'subject' => 'Hello',
+		'text' => 'Teset some mailgun awesomeness'
+	) );
+
+header('Content-Type', 'application/json');
+json_encode(['status' => 'succes', 'result' => $result]);

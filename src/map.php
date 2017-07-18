@@ -10,8 +10,8 @@ $spots        = \App\DB::getSpots();
 
 $reserved_spots = \App\DB::getReservedSpots();
 function is_spot_reserved( $spot ) {
-    global $reserved_spot_ids;
-	return in_array( $spot, $reserved_spot_ids );
+    global $reserved_spots;
+	return in_array( $spot, $reserved_spots );
 }
 
 ?>

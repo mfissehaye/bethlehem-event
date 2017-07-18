@@ -74,6 +74,7 @@ $(function () {
             $submitExhibitorFormButton.text('Loading');
             var data = getExhibitorFormData();
             var email = data.email;
+            var companyName = data['company-name'];
             $.ajax({
                 type: 'POST',
                 url: '/src/reserve.php',
@@ -104,6 +105,7 @@ $(function () {
                             url: '/src/send-email.php',
                             data: {
                                 email: email,
+                                company_name: companyName,
                                 token: result.token
                             },
                             success: function(response) {

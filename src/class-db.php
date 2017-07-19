@@ -48,20 +48,20 @@ class DB {
 		return $final_results;
 	}
 
+	public static function getFreeSpots() {
+		return array_diff(self::getSpots(), self::getReservedSpots());
+	}
+
 	public static function reserveSpots( $exhibitorData, $spots ) {
-
-		$db = self::connect();
-
-		$free_spots = $db->table( 'spots' )->where( 'id', $spots )->where( 'reserved', 0 )->where( 'approved', 0 );
-
-		$result = [];
 
 		$exhibitor = self::createExhibitor( $exhibitorData );
 		$result['token'] = $exhibitor['token'];
 
+		$result = [];
+
 		/** @var Result $spot */
 		$result['ids'] = [];
-		foreach ( $free_spots as $spot ) {
+		foreach ( self::getFreeSpots() as $spot ) {
 			$result['ids'][]  = $spot['id'];
 			$spot['reserved']     = 1;
 			$spot['exhibitor_id'] = $exhibitor->getId();
